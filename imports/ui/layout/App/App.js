@@ -7,9 +7,10 @@ import PropTypes from 'prop-types';
 import Authenticated from '../../components/Authenticated/Authenticated';
 import Public from '../../components/Public/Public';
 import Index from '../../pages/Index/Index';
-import Login    from '../../pages/Login/Login';
-import AddUser   from '../../pages/AddUser/AddUser';
+import Login from '../../pages/Login/Login';
+import AddUser from '../../pages/AddUser/AddUser';
 import NotFound from '../../pages/NotFound/NotFound';
+import Contact from '../../pages/Contact/Contact';
 
 const App = (props) => (
   <Router>
@@ -19,6 +20,7 @@ const App = (props) => (
         <Public exact path="/login" redirectPath="/" component={Login} {...props} />
         <Authenticated exact path="/something" component={Index} {...props} />
         <Route exact path="/adduser" component={AddUser} {...props} />
+        <Route exact path="/contact" component={Contact} {...props} />
         <Route path="*" component={NotFound} />
       </Switch>
     </div>
