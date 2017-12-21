@@ -28,3 +28,36 @@ p {
 a {
 
 }
+
+button {
+  background-color: #ffffff;
+  border: none;
+  color: #000000;
+  cursor: pointer;
+  font-size: 1.6rem;
+  line-height: 1.2;
+  margin-bottom: 1.4rem;
+  padding: 1.4rem;
+  text-transform: uppercase;
+}
+
+.pull-right {
+  text-align: right;
+}
+
+.pull-left {
+  text-align: left;
+}
+
+
+.selected button {
+  background-color: #000000;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 1.6rem;
+  line-height: 1.2;
+  margin-bottom: 1.4rem;
+  padding: 1.4rem;
+  text-transform: uppercase;
+}

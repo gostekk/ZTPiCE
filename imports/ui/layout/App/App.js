@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 // Components
 import Authenticated from '../../components/Authenticated/Authenticated';
 import Public from '../../components/Public/Public';
+import Navigation from '../../components/Navigation/Navigation';
 
 // Public
 import Login from '../../pages/Login/Login';
@@ -28,6 +29,7 @@ import NotFound from '../../pages/NotFound/NotFound';
 const App = (props) => (
   <Router>
     <div>
+      <Navigation {...props}/>
       <Switch>
         <Route exact name="index" path="/" component={Index} />
         <Public exact path="/login" redirectPath="/" component={Login} {...props} />
@@ -58,10 +60,9 @@ App.propTypes = {
 };
 
 export default withTracker(() => {
-  const authenticated = !!Meteor.userId();
   const userId = Meteor.userId();
   return {
-    authenticated,
+    authenticated: !!userId,
     userId,
   };
 })(App);
