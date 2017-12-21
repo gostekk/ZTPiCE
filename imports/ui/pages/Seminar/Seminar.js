@@ -1,13 +1,21 @@
 import React from 'react';
+import { Meteor } from 'meteor/meteor';
+import { withTracker} from 'meteor/react-meteor-data';
 
-class Seminar extends React.Component {
-  render () {
-    return (
-      <div>
-        Seminar
-      </div>
-    );
+import { Pages } from '../../../api/Pages/pages';
+
+import Loading from '../../components/Loading/Loading';
+
+const Seminar = ({ loading, pageContent }) => (
+  !loading ? (
+      <div dangerouslySetInnerHTML={{ __html: pageContent.body }} />
+  ) : <Loading />
+);
+
+export default withTracker(() => {
+  const subscription = Meteor.subscribe('pages');
+  return {
+    loading: !subscription.ready(),
+    pageContent: Pages.findOne({title: 'seminar'}),
   }
-}
-
-export default Seminar;
+})(Seminar);
