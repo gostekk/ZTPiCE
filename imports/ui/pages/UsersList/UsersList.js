@@ -2,18 +2,21 @@ import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { withTracker} from 'meteor/react-meteor-data';
 
-const UsersList = (props) => {
-  console.log(props.users);
-  return (
+import UsersListItem from '../../components/UsersListItem/UsersListItem';
+import Loading from '../../components/Loading/Loading';
+
+const UsersList = ({ loading, users}) => (
+  !loading ? (
     <div>
-      UsersList
+      { users.map((user) => <UsersListItem key={user._id} user={user} />) }
     </div>
-  );
-}
+  ) : <Loading />
+);
 
 export default withTracker(() => {
-  Meteor.subscribe("userList");
+  const subscription = Meteor.subscribe("userList");
   return {
+    loading: !subscription.ready(),
     users: Meteor.users.find({}).fetch(),
   }
 })(UsersList);
