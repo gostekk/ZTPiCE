@@ -4,11 +4,15 @@ import { withTracker} from 'meteor/react-meteor-data';
 
 import { Pages } from '../../../api/Pages/pages';
 
+import AddSeminar from '../../components/AddSeminar/AddSeminar';
 import Loading from '../../components/Loading/Loading';
 
 const Seminar = ({ loading, pageContent }) => (
   !loading ? (
+    <div>
       <div dangerouslySetInnerHTML={{ __html: pageContent.body }} />
+      <AddSeminar />
+    </div>
   ) : <Loading />
 );
 
