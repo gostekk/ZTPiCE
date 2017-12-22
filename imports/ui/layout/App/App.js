@@ -16,6 +16,7 @@ import Login from '../../pages/Login/Login';
 import AddUser from '../../pages/AddUser/AddUser';
 import Library from '../../pages/Library/Library';
 import Stock from '../../pages/Stock/Stock';
+import UsersList from '../../pages/UsersList/UsersList';
 
 // Route
 import Index from '../../pages/Index/Index';
@@ -37,6 +38,7 @@ const App = (props) => (
         <Route exact path="/adduser" component={AddUser} {...props} />
         <Authenticated exact path="/library" component={Library} {...props} />
         <Authenticated exact path="/stock" component={Stock} {...props} />
+        <Authenticated exact path="/users" component={UsersList} {...props} />
 
         <Route exact path="/conferences" component={Conferences} {...props} />
         <Route exact path="/contact" component={Contact} {...props} />
