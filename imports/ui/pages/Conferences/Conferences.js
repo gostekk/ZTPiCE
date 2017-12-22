@@ -4,11 +4,15 @@ import { withTracker} from 'meteor/react-meteor-data';
 
 import { Pages } from '../../../api/Pages/pages';
 
+import EditPageButton from '../../components/EditPageButton/EditPageButton';
 import Loading from '../../components/Loading/Loading';
 
 const Conferences = ({ loading, pageContent }) => (
   !loading ? (
+    <div>
+      <EditPageButton pageId={pageContent._id}/>
       <div dangerouslySetInnerHTML={{ __html: pageContent.body }} />
+    </div>
   ) : <Loading />
 );
 
