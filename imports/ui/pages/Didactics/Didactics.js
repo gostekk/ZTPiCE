@@ -1,4 +1,6 @@
 import React from 'react';
+import { Meteor } from 'meteor/meteor';
+import { withTracker} from 'meteor/react-meteor-data';
 
 class Didactics extends React.Component {
   render () {
@@ -10,4 +12,9 @@ class Didactics extends React.Component {
   }
 }
 
-export default Didactics;
+export default withTracker(() => {
+  const userId = Meteor.userId();
+  return {
+    authenticated: !!userId,
+  }
+})(Didactics);

@@ -8,19 +8,21 @@ import AddSeminar from '../../components/AddSeminar/AddSeminar';
 import EditPageButton from '../../components/EditPageButton/EditPageButton';
 import Loading from '../../components/Loading/Loading';
 
-const Seminar = ({ loading, pageContent }) => (
+const Seminar = ({ authenticated, loading, pageContent }) => (
   !loading ? (
     <div>
-      <EditPageButton pageId={pageContent._id}/>
+      { authenticated ? <EditPageButton pageId={pageContent._id}/> : undefined }
       <div dangerouslySetInnerHTML={{ __html: pageContent.body }} />
-      <AddSeminar />
+      { authenticated ? <AddSeminar/> : undefined }
     </div>
   ) : <Loading />
 );
 
 export default withTracker(() => {
   const subscription = Meteor.subscribe('pages');
+  const userId = Meteor.userId();
   return {
+    authenticated: !!userId,
     loading: !subscription.ready(),
     pageContent: Pages.findOne({title: 'seminar'}),
   }
