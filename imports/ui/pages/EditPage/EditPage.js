@@ -12,8 +12,19 @@ class EditPage extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
+      title: '',
       body: '',
     }
+  }
+
+  componentDidMount() {
+    Meteor.subscribe('pages', () => {
+      const willMountPage = Pages.findOne(this.props.pageId);
+      this.setState({
+        title: willMountPage.title,
+        body: willMountPage.body,
+      });
+    });
   }
 
   componentDidUpdate (prevProps, prevState) {
@@ -38,7 +49,7 @@ class EditPage extends React.Component {
       return (this.props.page ?
       (
         <div>
-          <h2>{ this.props.page.title || 'Untitled page' }</h2>
+          <h2>{ this.state.title || 'Untitled page' }</h2>
           <p>Last edited: { moment(this.props.page.updatedAt).format('D.M.YYYY H:mm')}</p>
           <div>
             <textarea
@@ -67,6 +78,7 @@ export default withTracker(({ match }) => {
   const pageId = match.params.id;
   const subscription = Meteor.subscribe('pages');
   return {
+    pageId,
     loading: !subscription.ready(),
     page: Pages.findOne(pageId),
   }
