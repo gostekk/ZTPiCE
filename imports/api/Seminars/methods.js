@@ -31,5 +31,19 @@ Meteor.methods({
       date: date,
       createdAt: new Date(),
     });
+  },
+  'seminars.remove': function seminarsRemove( _id) {
+    if (!this.userId) {
+      throw new Meteor.Error('not-authorized');
+    }
+
+    new SimpleSchema({
+      _id: {
+        type: String,
+        min: 1,
+      }
+    }).validate({ _id });
+
+    Seminars.remove({ _id });
   }
 });

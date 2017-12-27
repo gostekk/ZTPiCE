@@ -8,7 +8,7 @@ import { Seminars } from '../../../api/Seminars/seminars';
 import Loading from '../../components/Loading/Loading';
 import SeminarsListItem from '../../components/SeminarsListItem/SeminarsListItem';
 
-const SeminarsList = ({ loading, seminars}) => {
+const SeminarsList = ({ authenticated, loading, seminars}) => {
   if (loading) {
     return <Loading/>;
   }
@@ -23,7 +23,7 @@ const SeminarsList = ({ loading, seminars}) => {
     return (
       <div>
         { seminars.map((seminar) =>
-          <SeminarsListItem key={seminar._id} {...seminar}/>
+          <SeminarsListItem key={seminar._id} authenticated={authenticated} {...seminar}/>
         )}
       </div>
     );
