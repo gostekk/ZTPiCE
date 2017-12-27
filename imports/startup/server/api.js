@@ -5,3 +5,5 @@ import '../../api/Pages/server/publications';
 import '../../api/Pages/server/init';
 
 import '../../api/Seminars/server/publications';
+
+import '../../api/Books/server/publications';
