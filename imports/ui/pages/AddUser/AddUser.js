@@ -69,7 +69,6 @@ class AddUser extends React.Component {
   }
 
   render () {
-    console.log(this.props.usersList);
     return (
       <div>
         <div>
