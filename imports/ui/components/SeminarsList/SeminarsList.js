@@ -34,7 +34,6 @@ SeminarsList.propTypes = {
   seminars: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
-
 export default withTracker(() => {
   const subscription = Meteor.subscribe('seminars');
   return {
