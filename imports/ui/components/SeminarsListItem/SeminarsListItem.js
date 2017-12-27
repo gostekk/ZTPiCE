@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 
 const SeminarsListItem = ({ title, date }) => {
@@ -9,5 +10,10 @@ const SeminarsListItem = ({ title, date }) => {
     </div>
   );
 }
+
+SeminarsListItem.propTypes = {
+  title: PropTypes.string.isRequired,
+  date: PropTypes.object.isRequired,
+};
 
 export default SeminarsListItem;

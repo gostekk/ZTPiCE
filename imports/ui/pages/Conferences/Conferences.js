@@ -1,6 +1,7 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { withTracker} from 'meteor/react-meteor-data';
+import PropTypes from 'prop-types';
 
 import { Pages } from '../../../api/Pages/pages';
 
@@ -15,6 +16,11 @@ const Conferences = ({ authenticated, loading, pageContent }) => (
     </div>
   ) : <Loading />
 );
+
+Conferences.propTypes = {
+  authenticated: PropTypes.bool.isRequired,
+  pageContent: PropTypes.object,
+};
 
 export default withTracker(() => {
   const subscription = Meteor.subscribe('pages');
