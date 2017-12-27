@@ -7,6 +7,7 @@ import { Pages } from '../../../api/Pages/pages';
 import AddSeminar from '../../components/AddSeminar/AddSeminar';
 import EditPageButton from '../../components/EditPageButton/EditPageButton';
 import Loading from '../../components/Loading/Loading';
+import SeminarsList from '../../components/SeminarsList/SeminarsList';
 
 const Seminar = ({ authenticated, loading, pageContent }) => (
   !loading ? (
@@ -14,6 +15,8 @@ const Seminar = ({ authenticated, loading, pageContent }) => (
       { authenticated ? <EditPageButton pageId={pageContent._id}/> : undefined }
       <div dangerouslySetInnerHTML={{ __html: pageContent.body }} />
       { authenticated ? <AddSeminar/> : undefined }
+
+      <SeminarsList authenticated={authenticated}/>
     </div>
   ) : <Loading />
 );
