@@ -6,6 +6,7 @@ class BookAdd extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      error: '',
       title: '',
       author: '',
       publicationDate: '',
@@ -26,20 +27,31 @@ class BookAdd extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
 
+    const title = this.state.title ? this.state.title.trim() : undefined;
+    const author = this.state.author ? this.state.author.trim() : undefined;
+    const publicationDate = this.state.publicationDate ? moment(this.state.publicationDate, 'YYYY').toDate() : undefined;
+    const publisher = this.state.publisher ? this.state.publisher.trim() : undefined;
+    const numberOfPages = this.state.numberOfPages ? this.state.numberOfPages : undefined;
+    const isbn = this.state.isbn ? this.state.isbn : undefined;
+
     const book = {
-      title: this.state.title.trim(),
-      author: this.state.author.trim(),
-      publicationDate: moment(this.state.publicationDate, 'YYYY').toDate(),
-      publisher: this.state.publisher.trim(),
-      numberOfPages: this.state.numberOfPages,
-      isbn: this.state.isbn,
+      title,
+      author,
+      publicationDate,
+      publisher,
+      numberOfPages,
+      isbn,
     };
 
     Meteor.call('books.insert', book, (error, _id) => {
       if (error) {
         console.log(error.reason);
+        this.setState({
+          error: error.reason,
+        });
       } else {
         this.setState({
+          error: '',
           title: '',
           author: '',
           publicationDate: '',
@@ -96,6 +108,7 @@ class BookAdd extends React.Component {
   render () {
     return (
       <form ref={form => (this.form = form)} onSubmit={ this.handleSubmit}>
+        { this.state.error ? <p>{this.state.error}</p> : undefined }
         <label>Title</label>
         <input
           type="text"

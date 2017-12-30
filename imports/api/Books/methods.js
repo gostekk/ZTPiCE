@@ -12,23 +12,29 @@ Meteor.methods({
     new SimpleSchema({
       title: {
         type: String,
+        required: true,
       },
       author: {
         type: String,
+        required: true,
       },
       publicationDate: {
         type: Date,
+        optional: true,
       },
       publisher: {
         type: String,
+        optional: true,
       },
       numberOfPages: {
         type: Number,
         min: 1,
         max: 9999,
+        optional: true,
       },
       isbn: {
         type: String,
+        required: true,
       }
     }).validate({
       ...book,
