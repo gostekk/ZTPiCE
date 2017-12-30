@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { ReactiveVar } from 'meteor/reactive-var';
 import { withTracker} from 'meteor/react-meteor-data';
 
 import { Books } from '../../../api/Books/books';
@@ -26,10 +27,12 @@ BooksList.propTypes = {
   books: PropTypes.arrayOf(PropTypes.object),
 };
 
-export default withTracker(() => {
+export default withTracker(({ showMyBooks }) => {
   const subscription = Meteor.subscribe('books');
   return {
     loading: subscription.ready(),
-    books: Books.find().fetch(),
+    books: showMyBooks.get()
+    ? Books.find({owner: Meteor.userId()}).fetch()
+    : Books.find().fetch(),
   }
 })(BooksList);
