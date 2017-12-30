@@ -47,7 +47,7 @@ Meteor.methods({
     }
   },
 
-  'books.remove': function booksRemove(_id) {
+  'book.remove': function booksRemove(_id) {
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
@@ -66,5 +66,30 @@ Meteor.methods({
     } catch (exception) {
       throw new Meteor.Error('500', exception);
     }
+  },
+
+  'book.changeOwner': function bookChangeOwner(bookId, userId) {
+    if (!this.userId) {
+      throw new Meteor.Error('not-authorized');
+    }
+
+    new SimpleSchema({
+      bookId: {
+        type: String,
+        min: 1
+      },
+      userId: {
+        type: String,
+        min: 1
+      }
+    }).validate({ bookId, userId });
+
+    Books.update({
+      _id: bookId,
+    }, {
+      $set: {
+        owner: userId,
+      }
+    });
   },
 });

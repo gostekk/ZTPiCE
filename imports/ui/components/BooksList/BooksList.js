@@ -8,7 +8,6 @@ import BooksListItem from '../../components/BooksListItem/BooksListItem';
 import Loading from '../../components/Loading/Loading';
 
 const BooksList = ({ loading, books}) => {
-  console.log(books);
   if (loading) {
     return (
       <div>

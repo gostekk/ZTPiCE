@@ -1,13 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withTracker} from 'meteor/react-meteor-data';
 
-const BooksListItem = (book) => {
-  console.log(book);
+const BooksListItem = ({ _id, title, author, owner, ownerData}) => {
+  const ownerNameDisplayed = 'Undefined';
+
+  if (ownerData) {
+    ownerNameDisplayed = ownerData.info ? ownerData.info.nameDisplayed : 'Undefined';
+  }
+
   return (
     <div>
-      <h4>{ book.title }</h4>
-      <h5>{ book.author }</h5>
-      <p>{ book.owner ? `${book.owner}` : 'Undefined' }</p>
+      <h4>{ title }</h4>
+      <h5>{ author }</h5>
+      <p>{ owner ? `${ownerNameDisplayed}` : 'Undefined' }</p>
+      <button onClick={() => {
+        Meteor.call('book.changeOwner', _id, Meteor.userId());
+      }
+      }>Change Owner</button>
+      <button onClick={() => {
+        Meteor.call('book.remove', _id);
+      }
+      }>Delete</button>
     </div>
   );
 }
@@ -16,4 +30,10 @@ BooksListItem.propTypes = {
   book: PropTypes.object,
 };
 
-export default BooksListItem;
+export default withTracker(({ owner }) => {
+  const subscription = Meteor.subscribe("userList");
+  return {
+    loading: !subscription.ready(),
+    ownerData: Meteor.users.findOne(owner),
+  }
+})(BooksListItem);
