@@ -22,7 +22,6 @@ Library.propTypes = {
   books: PropTypes.arrayOf(PropTypes.object),
 };
 
-
 export default withTracker(() => {
   const subscription = Meteor.subscribe('books');
   return {

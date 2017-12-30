@@ -39,7 +39,14 @@ class BookAdd extends React.Component {
       if (error) {
         console.log(error.reason);
       } else {
-        this.form.reset();
+        this.setState({
+          title: '',
+          author: '',
+          publicationDate: '',
+          publisher: '',
+          numberOfPages: '',
+          isbn: '',
+        });
         console.log('Book added!');
       }
     });
