@@ -8,6 +8,7 @@ class AddSeminar extends React.Component {
       error: '',
       date: '',
       title: '',
+      nameDisplayed: '',
     };
   }
 
@@ -15,22 +16,17 @@ class AddSeminar extends React.Component {
     e.preventDefault();
 
     const seminar = {
-      title: this.state.title,
       date: this.state.date,
+      title: this.state.title,
+      nameDisplayed: this.state.nameDisplayed,
     }
 
     Meteor.call('seminars.insert', seminar, (err, res) => {
       if (!err) {
-        this.setState({ error: '', title: '', date: ''});
+        this.setState({ error: '', title: '', date: '', nameDisplayed: '',});
       } else {
         this.setState({ error: err.reason });
       }
-    });
-  }
-
-  onTitleChange (e) {
-    this.setState({
-      title: e.target.value,
     });
   }
 
@@ -40,12 +36,31 @@ class AddSeminar extends React.Component {
     });
   }
 
+  onTitleChange (e) {
+    this.setState({
+      title: e.target.value,
+    });
+  }
+
+  onNameDisplayedChange (e) {
+    this.setState({
+      nameDisplayed: e.target.value,
+    });
+  }
+
   render () {
     return (
       <div>
         <h1>Add Seminar</h1>
         {this.state.error ? <p>{this.state.error}</p> : undefined}
         <form onSubmit={this.onSubmit.bind(this)}>
+          <input
+            type = "text"
+            placeholder = "nameDisplayed"
+            ref = "nameDisplayed"
+            value = { this.state.nameDisplayed }
+            onChange = { this.onNameDisplayedChange.bind(this) }
+          />
           <input
             type = "text"
             placeholder = "Title"

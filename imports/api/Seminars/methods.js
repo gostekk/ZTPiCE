@@ -12,23 +12,32 @@ Meteor.methods({
 
     const title = seminar.title;
     const date = moment(seminar.date).toDate();
+    const nameDisplayed = seminar.nameDisplayed;
 
     new SimpleSchema({
-      title: {
-        type: String,
-      },
       date: {
         type: Date,
-      }
+        required: true,
+      },
+      title: {
+        type: String,
+        required: true,
+      },
+      nameDisplayed: {
+        type: String,
+        required: true,
+      },
     }).validate({
-      title,
       date,
+      title,
+      nameDisplayed,
     });
 
     return Seminars.insert({
-      title: title,
-      userId: this.userId,
       date: date,
+      title: title,
+      nameDisplayed: nameDisplayed,
+      userId: this.userId,
       createdAt: new Date(),
     });
   },
