@@ -1,31 +1,17 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { withTracker} from 'meteor/react-meteor-data';
-import PropTypes from 'prop-types';
-
-import { Books } from '../../../api/Books/books';
 
 import BookAdd from '../../components/BookAdd/BookAdd';
+import BooksList from '../../components/BooksList/BooksList';
 
-class Library extends React.Component {
-  render () {
-    return (
-      <div>
-        Library
-        <BookAdd />
-      </div>
-    );
-  }
+const Library = () => {
+  return (
+    <div>
+      Library
+      <BookAdd />
+      <BooksList />
+    </div>
+  );
 }
 
-Library.propTypes = {
-  books: PropTypes.arrayOf(PropTypes.object),
-};
-
-export default withTracker(() => {
-  const subscription = Meteor.subscribe('books');
-  return {
-    loading: subscription.ready(),
-    books: Books.find().fetch(),
-  }
-})(Library);
+export default Library;
