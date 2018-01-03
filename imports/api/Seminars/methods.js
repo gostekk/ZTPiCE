@@ -9,7 +9,7 @@ Meteor.methods({
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
-
+    
     const title = seminar.title;
     const date = moment(seminar.date).toDate();
     const nameDisplayed = seminar.nameDisplayed;
@@ -54,5 +54,40 @@ Meteor.methods({
     }).validate({ _id });
 
     Seminars.remove({ _id });
-  }
+  },
+  'seminars.update': function seminarsUpdate(_id, updates) {
+    if (!this.userId) {
+      throw new Meteor.Error('not-authorized');
+    }
+
+    new SimpleSchema({
+      _id: {
+        type: String,
+        min: 1,
+      },
+      title: {
+        type: String,
+        optional: true,
+      },
+      date: {
+        type: Date,
+        optional: true,
+      },
+      nameDisplayed: {
+        type: String,
+        optional: true,
+      }
+    }).validate({
+      _id,
+      ...updates,
+    });
+
+    Seminars.update({
+      _id,
+    }, {
+      $set: {
+        ...updates,
+      },
+    });
+  },
 });

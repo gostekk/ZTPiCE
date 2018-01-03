@@ -2,6 +2,7 @@ import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { withTracker} from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
+import { ReactiveVar } from 'meteor/reactive-var'
 
 import { Seminars } from '../../../api/Seminars/seminars';
 
@@ -23,7 +24,7 @@ const SeminarsList = ({ authenticated, loading, seminars}) => {
     return (
       <div>
         { seminars.map((seminar) =>
-          <SeminarsListItem key={seminar._id} authenticated={authenticated} {...seminar}/>
+          <SeminarsListItem key={seminar._id} editMode={new ReactiveVar(false)} authenticated={authenticated} {...seminar}/>
         )}
       </div>
     );
