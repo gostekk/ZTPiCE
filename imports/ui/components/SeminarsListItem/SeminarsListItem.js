@@ -44,6 +44,15 @@ class SeminarsListItem extends React.Component {
     });
   }
 
+  onCancel (e) {
+    this.props.editMode.set(false);
+    this.setState({
+      date: moment(this.props.date).format('YYYY-MM-DD'),
+      title: this.props.title,
+      nameDisplayed: this.props.nameDisplayed,
+    });
+  }
+
   onDateChange (e) {
     this.setState({
       date: e.target.value,
@@ -104,6 +113,7 @@ class SeminarsListItem extends React.Component {
               onChange = { this.onDateChange.bind(this) }
             />
             <button>Save</button>
+            <button onClick={this.onCancel.bind(this)}>Cancel</button>
           </form>
         </div>
       );
