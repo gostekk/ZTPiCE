@@ -5,17 +5,16 @@ import { withTracker} from 'meteor/react-meteor-data';
 
 import { Books } from '../../../api/Books/books';
 
+import BookInfo from '../../components/BookInfo/BookInfo';
+import BookEdit from '../../components/BookEdit/BookEdit';
+
 class BookDetails extends React.Component {
   render () {
     if (this.props.loading) {
       return (
         <div>
-          <button onClick={() => this.props.history.go(-1)}>Back</button>
-          <p>Title: { this.props.book.title }</p>
-          <p>Author: { this.props.book.author }</p>
-          <p>Publisher: { this.props.book.publisher }</p>
-          <p>ISBN: { this.props.book.isbn }</p>
-          <p>Number of pages: { this.props.book.numberOfPages }</p>
+          <BookInfo history={this.props.history} book={this.props.book} />
+          <BookEdit history={this.props.history} book={this.props.book} />
         </div>
       );
     } else {
