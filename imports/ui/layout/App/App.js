@@ -14,6 +14,7 @@ import Login from '../../pages/Login/Login';
 
 // Authenticated
 import AddUser from '../../pages/AddUser/AddUser';
+import BookDetails from '../../pages/BookDetails/BookDetails';
 import EditPage from '../../pages/EditPage/EditPage';
 import Library from '../../pages/Library/Library';
 import Stock from '../../pages/Stock/Stock';
@@ -39,6 +40,7 @@ const App = (props) => (
         <Route exact path="/adduser" component={AddUser} {...props} />
         <Authenticated exact path="/pages/:id" component={EditPage} {...props} />
         <Authenticated exact path="/library" component={Library} {...props} />
+        <Authenticated exact path="/library/:id" component={BookDetails} {...props} />
         <Authenticated exact path="/stock" component={Stock} {...props} />
         <Authenticated exact path="/users" component={UsersList} {...props} />
 

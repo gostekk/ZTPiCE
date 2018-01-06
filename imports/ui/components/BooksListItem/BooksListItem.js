@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withTracker} from 'meteor/react-meteor-data';
 
-const BooksListItem = ({ _id, title, author, owner, ownerData}) => {
+const BooksListItem = ({ _id, title, author, owner, ownerData, history}) => {
   const ownerNameDisplayed = 'Undefined';
 
   if (ownerData) {
@@ -10,7 +10,7 @@ const BooksListItem = ({ _id, title, author, owner, ownerData}) => {
   }
 
   return (
-    <div>
+    <div onDoubleClick={() => history.push(`/library/${_id}`)}>
       <h4>{ title }</h4>
       <h5>{ author }</h5>
       <p>{ owner ? `${ownerNameDisplayed}` : 'Undefined' }</p>

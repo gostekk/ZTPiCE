@@ -8,13 +8,13 @@ import { Books } from '../../../api/Books/books';
 import BooksListItem from '../../components/BooksListItem/BooksListItem';
 import Loading from '../../components/Loading/Loading';
 
-const BooksList = ({ loading, books}) => {
+const BooksList = ({ loading, books, history}) => {
   if (loading) {
     return (
       <div>
         BooksList
         { books.map((book) =>
-          <BooksListItem key={book._id} {...book} />
+          <BooksListItem key={book._id} {...book} history={history} />
         )}
       </div>
     );

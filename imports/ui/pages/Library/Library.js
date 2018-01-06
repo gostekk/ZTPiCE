@@ -14,7 +14,7 @@ const Library = (props) => {
       Library
       <BookAdd />
       <BooksListFilters showMyBooks={showMyBooks}/>
-      <BooksList showMyBooks={showMyBooks}/>
+      <BooksList showMyBooks={showMyBooks} {...props}/>
     </div>
   );
 }
