@@ -2,6 +2,7 @@ import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import PropTypes from 'prop-types';
 import { withTracker} from 'meteor/react-meteor-data';
+import { ReactiveVar } from 'meteor/reactive-var'
 
 import { Books } from '../../../api/Books/books';
 
@@ -13,8 +14,9 @@ class BookDetails extends React.Component {
     if (this.props.loading) {
       return (
         <div>
-          <BookInfo history={this.props.history} book={this.props.book} />
-          <BookEdit history={this.props.history} book={this.props.book} />
+          { !this.props.editModeValue
+            ? <BookInfo history={this.props.history} book={this.props.book} editMode={this.props.editMode} />
+            : <BookEdit history={this.props.history} book={this.props.book} editMode={this.props.editMode} /> }
         </div>
       );
     } else {
@@ -27,9 +29,13 @@ class BookDetails extends React.Component {
   }
 }
 
+const editMode = new ReactiveVar(false);
+
 export default withTracker(({ match }) => {
   const subscription = Meteor.subscribe('book.details', match.params.id);
   return {
+    editMode: editMode,
+    editModeValue: editMode.get(),
     loading: subscription.ready(),
     book: Books.findOne(match.params.id),
   }

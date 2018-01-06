@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { ReactiveVar } from 'meteor/reactive-var'
 
 class BookEdit extends React.Component {
   constructor (props) {
@@ -42,7 +43,7 @@ class BookEdit extends React.Component {
       isbn,
     };
     console.log(this.props.book._id);
-    
+
 
     Meteor.call('books.update', this.props.book._id, updatedBook, (error, _id) => {
       if (error) {
@@ -61,6 +62,7 @@ class BookEdit extends React.Component {
           isbn: '',
         });
         console.log('Book updated!');
+        this.props.editMode.set(false);
       }
     });
   }
@@ -109,6 +111,9 @@ class BookEdit extends React.Component {
   render () {
     return (
       <div>
+        <button onClick={() => history.go(-1)}>Back</button>
+        <button onClick={() => this.props.editMode.set(false)}>Cancel</button>
+
         <form ref={form => (this.form = form)} onSubmit={ this.handleSubmit}>
           { this.state.error ? <p>{this.state.error}</p> : undefined }
           <label>Title</label>
@@ -176,6 +181,7 @@ class BookEdit extends React.Component {
 BookEdit.propTypes = {
   book: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
+  editMode: PropTypes.object.isRequired,
 };
 
 export default BookEdit;
