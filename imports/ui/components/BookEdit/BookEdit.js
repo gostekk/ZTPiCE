@@ -42,8 +42,6 @@ class BookEdit extends React.Component {
       numberOfPages,
       isbn,
     };
-    console.log(this.props.book._id);
-
 
     Meteor.call('books.update', this.props.book._id, updatedBook, (error, _id) => {
       if (error) {
@@ -171,7 +169,17 @@ class BookEdit extends React.Component {
             onChange={ this.handleIsbnChange }
           />
           <br />
-          <input type="submit" value="Submit" />
+          {
+            this.state.title ||
+            this.state.author ||
+            this.state.publicationDate ||
+            this.state.publisher ||
+            this.state.numberOfPages ||
+            this.state.isbn
+
+              ? <button>Save</button>
+              : <button disabled>Save</button>
+          }
         </form>
       </div>
     );
