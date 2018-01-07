@@ -9,7 +9,7 @@ import { Seminars } from '../../../api/Seminars/seminars';
 import Loading from '../../components/Loading/Loading';
 import SeminarsListItem from '../../components/SeminarsListItem/SeminarsListItem';
 
-const SeminarsList = ({ authenticated, loading, seminars}) => {
+const SeminarsList = ({ authenticated, editOnClickValue, loading, seminars}) => {
   if (loading) {
     return <Loading/>;
   }
@@ -24,7 +24,13 @@ const SeminarsList = ({ authenticated, loading, seminars}) => {
     return (
       <div>
         { seminars.map((seminar) =>
-          <SeminarsListItem key={seminar._id} editMode={new ReactiveVar(false)} authenticated={authenticated} {...seminar}/>
+          <SeminarsListItem
+            key={seminar._id}
+            editMode={new ReactiveVar(false)}
+            editOnClickValue={editOnClickValue}
+            authenticated={authenticated}
+            seminar={seminar}
+          />
         )}
       </div>
     );
@@ -32,6 +38,8 @@ const SeminarsList = ({ authenticated, loading, seminars}) => {
 }
 
 SeminarsList.propTypes = {
+  authenticated: PropTypes.bool.isRequired,
+  editOnClickValue: PropTypes.bool.isRequired,
   seminars: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 

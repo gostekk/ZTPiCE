@@ -4,6 +4,8 @@ import moment from 'moment';
 import { ReactiveVar } from 'meteor/reactive-var'
 import { withTracker} from 'meteor/react-meteor-data';
 
+import SeminarsListItemInfo from '../../components/SeminarsListItemInfo/SeminarsListItemInfo';
+
 class SeminarsListItem extends React.Component {
   constructor (props) {
     super(props);
@@ -18,9 +20,9 @@ class SeminarsListItem extends React.Component {
   componentDidMount () {
     if (!this.props.editModeValue) {
       this.setState({
-        date: moment(this.props.date).format('YYYY-MM-DD'),
-        title: this.props.title,
-        nameDisplayed: this.props.nameDisplayed,
+        date: moment(this.props.seminar.date).format('YYYY-MM-DD'),
+        title: this.props.seminar.title,
+        nameDisplayed: this.props.seminar.nameDisplayed,
       });
     }
   }
@@ -34,7 +36,7 @@ class SeminarsListItem extends React.Component {
       nameDisplayed: this.state.nameDisplayed,
     }
 
-    Meteor.call('seminars.update', this.props._id, seminar, (err, res) => {
+    Meteor.call('seminars.update', this.props.seminar._id, seminar, (err, res) => {
       if (!err) {
         this.props.editMode.set(false);
         this.setState({ error: '' });
@@ -47,9 +49,9 @@ class SeminarsListItem extends React.Component {
   onCancel (e) {
     this.props.editMode.set(false);
     this.setState({
-      date: moment(this.props.date).format('YYYY-MM-DD'),
-      title: this.props.title,
-      nameDisplayed: this.props.nameDisplayed,
+      date: moment(this.props.seminar.date).format('YYYY-MM-DD'),
+      title: this.props.seminar.title,
+      nameDisplayed: this.props.seminar.nameDisplayed,
     });
   }
 
@@ -74,17 +76,12 @@ class SeminarsListItem extends React.Component {
   render () {
     if (!this.props.editModeValue) {
       return (
-        <div onClick={() => this.props.editMode.set(true)}>
-          <p>{ moment(this.props.date).format('DD.MM.YYYY') }</p>
-          <p>{ this.props.nameDisplayed }</p>
-          <h5>{ this.props.title }</h5>
-          { this.props.authenticated ? (
-            <button onClick={() => {
-              Meteor.call('seminars.remove', this.props._id);
-            }
-            }>X</button>)
-          : undefined }
-        </div>
+        <SeminarsListItemInfo
+          authenticated={this.props.authenticated}
+          editMode={this.props.editMode}
+          editOnClickValue={this.props.editOnClickValue}
+          {...this.props.seminar}
+        />
       );
     } else {
       return (
@@ -122,17 +119,16 @@ class SeminarsListItem extends React.Component {
 }
 
 SeminarsListItem.propTypes = {
-  _id: PropTypes.string.isRequired,
   authenticated: PropTypes.bool.isRequired,
-  date: PropTypes.object.isRequired,
-  title: PropTypes.string.isRequired,
-  nameDisplayed: PropTypes.string.isRequired,
+  editMode: PropTypes.object.isRequired,
+  editModeValue: PropTypes.bool.isRequired,
+  editOnClickValue: PropTypes.bool.isRequired,
+  seminar: PropTypes.object.isRequired,
 };
 
 export default withTracker(({ editMode }) => {
   const editModeValue = editMode.get();
   return {
-    editMode,
     editModeValue
   }
 })(SeminarsListItem);
