@@ -5,7 +5,7 @@ import SimpleSchema from 'simpl-schema';
 import { Materials } from './materials';
 
 Meteor.methods({
-  'materials.insert': function materialsInsert() {
+  'materials.insert': function materialsInsert(description) {
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
@@ -33,7 +33,7 @@ Meteor.methods({
     });
 
     Materials.remove({ _id });
-  }
+  },
 
   'materials.update': function (_id, description) {
     if (!this.userId) {

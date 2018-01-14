@@ -9,3 +9,5 @@ import '../../api/Seminars/server/publications';
 import '../../api/Books/server/publications';
 
 import '../../api/Things/server/publications';
+
+import '../../api/Materials/server/publications';
