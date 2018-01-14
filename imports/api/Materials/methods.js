@@ -10,8 +10,18 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized');
     }
 
+    new SimpleSchema({
+      description: {
+        type: String,
+        min: 1,
+        required: true,
+      },
+    }).validate({
+      description
+    });
+
     return Materials.insert({
-      description: '',
+      description: description,
       userId: this.userId,
       createdAt: new Date(),
       updatedAt: moment().valueOf(),

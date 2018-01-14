@@ -7,7 +7,7 @@ const Didactics = (props) => {
   return (
     <div>
       <MaterialAdd />
-      <MaterialsList />
+      <MaterialsList {...props}/>
     </div>
   );
 }
