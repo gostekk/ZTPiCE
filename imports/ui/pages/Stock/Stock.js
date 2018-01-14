@@ -1,13 +1,16 @@
 import React from 'react';
 
-class Stock extends React.Component {
-  render () {
-    return (
-      <div>
-        Stock
-      </div>
-    );
-  }
+import ThingAdd from '../../components/ThingAdd/ThingAdd';
+import ThingsList from '../../components/ThingsList/ThingsList';
+
+const Stock = (props) => {
+  return (
+    <div>
+      Stock
+      <ThingAdd />
+      <ThingsList {...props} />
+    </div>
+  );
 }
 
 export default Stock;
