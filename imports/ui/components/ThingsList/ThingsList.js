@@ -7,12 +7,12 @@ import { Things } from '../../../api/Things/things';
 import ThingsListItem from '../../components/ThingsListItem/ThingsListItem';
 import Loading from '../../components/Loading/Loading';
 
-const ThingsList = ({ loading, things, history}) => {
+const ThingsList = ({ loading, things}) => {
   if (loading) {
     return (
       <div>
         { things.map((thing) =>
-          <ThingsListItem key={thing._id} {...thing} history={history} />
+          <ThingsListItem key={thing._id} {...thing} />
         )}
       </div>
     );

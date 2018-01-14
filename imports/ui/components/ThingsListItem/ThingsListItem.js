@@ -29,6 +29,10 @@ const ThingsListItem = ({ _id, serialNumber, inventoryNumber, description, owner
 
 ThingsListItem.propTypes = {
   _id: PropTypes.string.isRequired,
+  serialNumber: PropTypes.string.isRequired,
+  inventoryNumber: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  owner: PropTypes.string,
 };
 
 export default withTracker(({ owner }) => {

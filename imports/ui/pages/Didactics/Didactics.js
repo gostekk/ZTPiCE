@@ -1,20 +1,17 @@
 import React from 'react';
-import { Meteor } from 'meteor/meteor';
-import { withTracker} from 'meteor/react-meteor-data';
 
-class Didactics extends React.Component {
-  render () {
-    return (
-      <div>
-        Didactics
-      </div>
-    );
-  }
+import MaterialAdd from '../../components/MaterialAdd/MaterialAdd';
+import MaterialEdit from '../../components/MaterialEdit/MaterialEdit';
+import MaterialsList from '../../components/MaterialsList/MaterialsList';
+
+const Didactics = (props) => {
+  return (
+    <div>
+      <MaterialAdd />
+      <MaterialEdit />
+      <MaterialsList />
+    </div>
+  );
 }
 
-export default withTracker(() => {
-  const userId = Meteor.userId();
-  return {
-    authenticated: !!userId,
-  }
-})(Didactics);
+export default Didactics;
