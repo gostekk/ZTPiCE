@@ -17,8 +17,8 @@ class MaterialEdit extends React.Component {
   }
 
   componentDidMount() {
-    Meteor.subscribe('materials', () => {
-      const willMountMaterial = Materials.findOne(this.props.materialId);
+    Meteor.subscribe('material.edit', this.props.match.params.id, () => {
+      const willMountMaterial = Materials.findOne(this.props.match.params.id);
       if (willMountMaterial) {
         this.setState({
           description: willMountMaterial.description,
@@ -50,6 +50,7 @@ class MaterialEdit extends React.Component {
       return (this.props.material ?
       (
         <div>
+          <button onClick={() => this.props.history.push('/didactics')}>Back</button>
           <p>Last edited: { moment(this.props.material.updatedAt).format('D.M.YYYY H:mm')}</p>
           <div>
             <textarea
@@ -75,11 +76,9 @@ MaterialEdit.propTypes = {
 };
 
 export default withTracker(({ match }) => {
-  const materialId = match.params.id;
-  const subscription = Meteor.subscribe('material.edit', materialId);
+  const subscription = Meteor.subscribe('material.edit', match.params.id);
   return {
-    materialId,
     loading: !subscription.ready(),
-    page: Materials.findOne(materialId),
+    material: Materials.findOne(match.params.id),
   }
 })(MaterialEdit);

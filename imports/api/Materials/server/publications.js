@@ -7,5 +7,5 @@ Meteor.publish('materials', function materials() {
 });
 
 Meteor.publish('material.edit', function materialEdit(_id) {
-  return Materials.find({ _id });
+  return Materials.find({ _id, userId: this.userId });
 });
