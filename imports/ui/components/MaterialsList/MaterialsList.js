@@ -25,6 +25,6 @@ export default withTracker(() => {
   const subscription = Meteor.subscribe('materials');
   return {
     loading: subscription.ready(),
-    materials: Materials.find().fetch(),
+    materials: Materials.find({}, { sort: { userId: 1 }}).fetch(),
   }
 })(MaterialsList);
