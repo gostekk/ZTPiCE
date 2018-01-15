@@ -41,6 +41,7 @@ class MaterialAdd extends React.Component {
   render () {
     return (
       <div>
+        <button onClick={() => this.props.history.push('/didactics')}>Back</button>
         <form ref={form => (this.form = form)} onSubmit={ this.handleSubmit.bind(this) }>
           { this.state.error ? <p>{this.state.error}</p> : undefined }
           <label>Description</label>

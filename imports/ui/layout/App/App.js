@@ -17,6 +17,7 @@ import AddUser from '../../pages/AddUser/AddUser';
 import BookDetails from '../../pages/BookDetails/BookDetails';
 import EditPage from '../../pages/EditPage/EditPage';
 import Library from '../../pages/Library/Library';
+import MaterialAdd from '../../pages/MaterialAdd/MaterialAdd';
 import MaterialEdit from '../../pages/MaterialEdit/MaterialEdit';
 import Stock from '../../pages/Stock/Stock';
 import UsersList from '../../pages/UsersList/UsersList';
@@ -39,6 +40,7 @@ const App = (props) => (
         <Public exact path="/login" redirectPath="/" component={Login} {...props} />
 
         <Route exact path="/adduser" component={AddUser} {...props} />
+        <Authenticated exact path="/didactics/add" component={MaterialAdd} {...props} />
         <Authenticated exact path="/didactics/edit/:id" component={MaterialEdit} {...props} />
         <Authenticated exact path="/library" component={Library} {...props} />
         <Authenticated exact path="/library/:id" component={BookDetails} {...props} />
