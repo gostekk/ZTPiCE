@@ -13,6 +13,9 @@ const MaterialsListItem = ({ loading, _id, description, owner, ownerData, histor
         <div dangerouslySetInnerHTML={{ __html: description }} />
 
         { owner ? <MaterialEditButton materialId={_id}/> : undefined }
+        { owner
+          ? <button onClick={() => Meteor.call('materials.remove', _id)}>Remove</button>
+          : undefined }
       </div>
     );
   } else {
@@ -22,7 +25,7 @@ const MaterialsListItem = ({ loading, _id, description, owner, ownerData, histor
 
 MaterialsListItem.propTypes = {
   _id: PropTypes.string.isRequired,
-  desciption: PropTypes.string.isRequired,
+  desciption: PropTypes.string,
   owner: PropTypes.bool.isRequired,
 };
 
