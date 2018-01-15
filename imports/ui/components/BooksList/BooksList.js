@@ -8,8 +8,15 @@ import { Books } from '../../../api/Books/books';
 import BooksListItem from '../../components/BooksListItem/BooksListItem';
 import Loading from '../../components/Loading/Loading';
 
-const BooksList = ({ loading, books, history}) => {
+const BooksList = ({ loading, books, showMyBooks, history}) => {
   if (loading) {
+    if ( books.length === 0 ) {
+      return (
+        <div>
+          No books added yet !
+        </div>
+      );
+    }
     return (
       <div>
         BooksList

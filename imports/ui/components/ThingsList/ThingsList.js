@@ -9,6 +9,13 @@ import Loading from '../../components/Loading/Loading';
 
 const ThingsList = ({ loading, things}) => {
   if (loading) {
+    if ( things.length === 0 ) {
+      return (
+        <div>
+          Nothing added yet !
+        </div>
+      );
+    }
     return (
       <div>
         { things.map((thing) =>
