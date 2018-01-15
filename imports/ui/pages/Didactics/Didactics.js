@@ -5,7 +5,9 @@ import MaterialsList from '../../components/MaterialsList/MaterialsList';
 const Didactics = (props) => {
   return (
     <div>
-      <button onClick={() => props.history.push('/didactics/add')}>Add</button>
+      { Meteor.userId()
+        ? <button onClick={() => props.history.push('/didactics/add')}>Add</button>
+        : undefined }
       <MaterialsList {...props}/>
     </div>
   );
