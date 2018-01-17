@@ -17,6 +17,8 @@ class AddUser extends React.Component {
       position: '',
       phone: '',
       room: '',
+      admin: true,
+      staff: true,
     };
   }
 
@@ -26,6 +28,9 @@ class AddUser extends React.Component {
     const email = this.state.email.trim();
     const password = this.state.password.trim();
     const repassword = this.state.repassword.trim();
+
+    const admin = this.state.admin ? false : true;
+    const staff = this.state.staff ? false : true;
 
     if (!(password === repassword)) {
       return this.setState({ error: 'Passwords are not identical!', password: '', repassword: ''})
@@ -44,7 +49,12 @@ class AddUser extends React.Component {
       room : this.state.room.trim(),
     };
 
-    Meteor.call('user.create', {email, password, profile}, (err, res) => {
+    const roles = {
+      admin,
+      staff
+    };
+
+    Meteor.call('user.create', {email, password, profile}, roles, (err, res) => {
       if (err) {
         this.setState({
           error: err.reason,
@@ -63,6 +73,8 @@ class AddUser extends React.Component {
           position: '',
           phone: '',
           room: '',
+          admin: false,
+          staff: false,
         });
       }
     });
@@ -149,6 +161,26 @@ class AddUser extends React.Component {
               value={ this.state.room }
               onChange={ (e) => this.setState({room: e.target.value}) }
             />
+            <label>
+              <input
+                type="checkbox"
+                ref="admin"
+                name="admin"
+                checked={ !this.state.admin }
+                onChange={ (e) => this.setState({admin: !e.target.checked})}
+              />
+              Admin
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                ref="staff"
+                name="staff"
+                checked={ !this.state.staff }
+                onChange={ (e) => this.setState({staff: !e.target.checked})}
+              />
+              Staff
+            </label>
             <button>Create Account</button>
           </form>
         </div>

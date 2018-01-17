@@ -6,10 +6,10 @@ import { Seminars } from './seminars';
 
 Meteor.methods({
   'seminars.insert': function seminarsInsert(seminar) {
-    if (!this.userId) {
+    if (!Roles.userIsInRole(this.userId, ['staff', 'admin'])) {
       throw new Meteor.Error('not-authorized');
     }
-    
+
     const title = seminar.title;
     const date = moment(seminar.date).toDate();
     const nameDisplayed = seminar.nameDisplayed;
@@ -41,8 +41,9 @@ Meteor.methods({
       createdAt: new Date(),
     });
   },
+
   'seminars.remove': function seminarsRemove( _id) {
-    if (!this.userId) {
+    if (!Roles.userIsInRole(this.userId, ['staff', 'admin'])) {
       throw new Meteor.Error('not-authorized');
     }
 
@@ -55,8 +56,9 @@ Meteor.methods({
 
     Seminars.remove({ _id });
   },
+
   'seminars.update': function seminarsUpdate(_id, updates) {
-    if (!this.userId) {
+    if (!Roles.userIsInRole(this.userId, ['staff', 'admin'])) {
       throw new Meteor.Error('not-authorized');
     }
 

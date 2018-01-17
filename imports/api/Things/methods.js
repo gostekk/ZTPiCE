@@ -5,7 +5,7 @@ import { Things } from './things';
 
 Meteor.methods({
   'things.insert': function thingsInsert(thing) {
-    if (!this.userId) {
+    if (!Roles.userIsInRole(this.userId, ['staff', 'admin'])) {
       throw new Meteor.Error('not-authorized');
     }
 
@@ -47,7 +47,7 @@ Meteor.methods({
   },
 
   'things.changeOwner': function thingsChangeOwner(thingId, userId) {
-    if (!this.userId) {
+    if (!Roles.userIsInRole(this.userId, ['staff', 'admin'])) {
       throw new Meteor.Error('not-authorized');
     }
 
@@ -72,7 +72,7 @@ Meteor.methods({
   },
 
   'things.update': function thingsInsert(_id, updates) {
-    if (!this.userId) {
+    if (!Roles.userIsInRole(this.userId, ['staff', 'admin'])) {
       throw new Meteor.Error('not-authorized');
     }
 

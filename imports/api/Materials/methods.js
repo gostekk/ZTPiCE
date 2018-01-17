@@ -6,7 +6,7 @@ import { Materials } from './materials';
 
 Meteor.methods({
   'materials.insert': function materialsInsert(description) {
-    if (!this.userId) {
+    if (!Roles.userIsInRole(this.userId, ['staff', 'admin'])) {
       throw new Meteor.Error('not-authorized');
     }
 
@@ -29,7 +29,7 @@ Meteor.methods({
   },
 
   'materials.remove': function materialsRemove(_id) {
-    if (!this.userId) {
+    if (!Roles.userIsInRole(this.userId, ['staff', 'admin'])) {
       throw new Meteor.Error('not-authorized');
     }
 
@@ -46,7 +46,7 @@ Meteor.methods({
   },
 
   'materials.update': function (_id, description) {
-    if (!this.userId) {
+    if (!Roles.userIsInRole(this.userId, ['staff', 'admin'])) {
       throw new Meteor.Error('not-authorized');
     }
 

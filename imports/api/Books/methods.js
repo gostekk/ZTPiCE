@@ -5,7 +5,7 @@ import { Books } from './books';
 
 Meteor.methods({
   'books.insert': function booksInsert(book) {
-    if (!this.userId) {
+    if (!Roles.userIsInRole(this.userId, ['staff', 'admin'])) {
       throw new Meteor.Error('not-authorized');
     }
 
@@ -48,7 +48,7 @@ Meteor.methods({
   },
 
   'book.remove': function booksRemove(_id) {
-    if (!this.userId) {
+    if (!Roles.userIsInRole(this.userId, ['staff', 'admin'])) {
       throw new Meteor.Error('not-authorized');
     }
 
@@ -69,7 +69,7 @@ Meteor.methods({
   },
 
   'book.changeOwner': function bookChangeOwner(bookId, userId) {
-    if (!this.userId) {
+    if (!Roles.userIsInRole(this.userId, ['staff', 'admin'])) {
       throw new Meteor.Error('not-authorized');
     }
 
@@ -94,7 +94,7 @@ Meteor.methods({
   },
 
   'books.update': function booksInsert(_id, updates) {
-    if (!this.userId) {
+    if (!Roles.userIsInRole(this.userId, ['staff', 'admin'])) {
       throw new Meteor.Error('not-authorized');
     }
 

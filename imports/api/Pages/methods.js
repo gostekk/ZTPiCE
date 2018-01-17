@@ -6,7 +6,7 @@ import { Pages } from './pages';
 
 Meteor.methods({
   'pages.insert': function pagesInsert() {
-    if (!this.userId) {
+    if (!Roles.userIsInRole(this.userId, 'admin')) {
       throw new Meteor.Error('not-authorized');
     }
 
@@ -18,7 +18,7 @@ Meteor.methods({
     })
   },
   'pages.update': function (_id, updates) {
-    if (!this.userId) {
+    if (!Roles.userIsInRole(this.userId, 'admin')) {
       throw new Meteor.Error('not-authorized');
     }
 
