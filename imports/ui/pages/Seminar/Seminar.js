@@ -11,20 +11,21 @@ import Loading from '../../components/Loading/Loading';
 import SeminarsFilters from '../../components/SeminarsFilters/SeminarsFilters';
 import SeminarsList from '../../components/SeminarsList/SeminarsList';
 
-const Seminar = ({ authenticated, editOnClick, editOnClickValue, loading, pageContent }) => (
+const Seminar = ({ authAdmin, authenticated, editOnClick, editOnClickValue, loading, pageContent }) => (
   !loading ? (
     <div>
-      { authenticated ? <EditPageButton pageId={pageContent._id}/> : undefined }
+      { authAdmin ? <EditPageButton pageId={pageContent._id}/> : undefined }
       <div dangerouslySetInnerHTML={{ __html: pageContent.body }} />
       { authenticated ? <AddSeminar/> : undefined }
       { authenticated ? <SeminarsFilters editOnClick={editOnClick} /> : undefined }
 
-      <SeminarsList authenticated={authenticated} editOnClickValue={editOnClickValue}/>
+      <SeminarsList authAdmin={authAdmin} editOnClickValue={editOnClickValue}/>
     </div>
   ) : <Loading />
 );
 
 Seminar.propTypes = {
+  authAdmin: PropTypes.bool.isRequired,
   authenticated: PropTypes.bool.isRequired,
   editOnClick: PropTypes.object.isRequired,
   editOnClickValue: PropTypes.bool.isRequired,
@@ -38,7 +39,8 @@ export default withTracker(() => {
   const userId = Meteor.userId();
   const editOnClickValue = editOnClick.get();
   return {
-    authenticated: !!userId,
+    authAdmin: !!userId && Roles.userIsInRole(userId, 'admin'),
+    authenticated: !!userId && Roles.userIsInRole(userId, ['staff', 'admin']),
     editOnClick: editOnClick,
     editOnClickValue,
     loading: !subscription.ready(),

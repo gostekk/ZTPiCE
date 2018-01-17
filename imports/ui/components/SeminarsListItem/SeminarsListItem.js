@@ -77,7 +77,7 @@ class SeminarsListItem extends React.Component {
     if (!this.props.editModeValue) {
       return (
         <SeminarsListItemInfo
-          authenticated={this.props.authenticated}
+          authAdmin={this.props.authAdmin}
           editMode={this.props.editMode}
           editOnClickValue={this.props.editOnClickValue}
           {...this.props.seminar}
@@ -119,7 +119,7 @@ class SeminarsListItem extends React.Component {
 }
 
 SeminarsListItem.propTypes = {
-  authenticated: PropTypes.bool.isRequired,
+  authAdmin: PropTypes.bool.isRequired,
   editMode: PropTypes.object.isRequired,
   editModeValue: PropTypes.bool.isRequired,
   editOnClickValue: PropTypes.bool.isRequired,

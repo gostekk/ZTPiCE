@@ -9,7 +9,7 @@ import { Seminars } from '../../../api/Seminars/seminars';
 import Loading from '../../components/Loading/Loading';
 import SeminarsListItem from '../../components/SeminarsListItem/SeminarsListItem';
 
-const SeminarsList = ({ authenticated, editOnClickValue, loading, seminars}) => {
+const SeminarsList = ({ authAdmin, editOnClickValue, loading, seminars}) => {
   if (loading) {
     return <Loading/>;
   }
@@ -28,7 +28,7 @@ const SeminarsList = ({ authenticated, editOnClickValue, loading, seminars}) => 
             key={seminar._id}
             editMode={new ReactiveVar(false)}
             editOnClickValue={editOnClickValue}
-            authenticated={authenticated}
+            authAdmin={authAdmin}
             seminar={seminar}
           />
         )}
@@ -38,7 +38,7 @@ const SeminarsList = ({ authenticated, editOnClickValue, loading, seminars}) => 
 }
 
 SeminarsList.propTypes = {
-  authenticated: PropTypes.bool.isRequired,
+  authAdmin: PropTypes.bool.isRequired,
   editOnClickValue: PropTypes.bool.isRequired,
   seminars: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
