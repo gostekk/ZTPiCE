@@ -3,9 +3,19 @@ import { Meteor } from 'meteor/meteor';
 import { Things } from '../things';
 
 Meteor.publish('things', function things() {
-  return Things.find();
+  if (Roles.userIsInRole(this.userId, ['staff', 'admin'])) {
+    return Things.find();
+  }
+
+  this.stop();
+  return;
 });
 
 Meteor.publish('thing.details', function thingDetails(_id) {
-  return Things.find({ _id });
+  if (Roles.userIsInRole(this.userId, ['staff', 'admin'])) {
+    return Things.find({ _id });
+  }
+
+  this.stop();
+  return;
 });

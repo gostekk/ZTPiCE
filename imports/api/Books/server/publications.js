@@ -3,9 +3,18 @@ import { Meteor } from 'meteor/meteor';
 import { Books } from '../books';
 
 Meteor.publish('books', function books() {
-  return Books.find();
+  if (Roles.userIsInRole(this.userId, ['staff', 'admin'])) {
+    return Books.find();
+  }
+
+  this.stop();
+  return;
 });
 
 Meteor.publish('book.details', function bookDetails(_id) {
-  return Books.find({ _id });
+  if (Roles.userIsInRole(this.userId, ['staff', 'admin'])) {
+    return Books.find({ _id });
+  }
+  this.stop();
+  return;
 });
