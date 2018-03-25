@@ -17,4 +17,13 @@ Meteor.methods({
       Roles.addUsersToRoles(id, 'staff');
     }
   },
+
+  'user.nameDisplayed': function (userId) {
+    const user = Meteor.users.findOne(userId);
+    try {
+      return user.info.nameDisplayed;
+    } catch (e) {
+      return 'Undefined';
+    }
+  },
 });

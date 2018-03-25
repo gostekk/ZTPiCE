@@ -8,7 +8,7 @@ import { Books } from '../../../api/Books/books';
 import BooksListItem from '../../components/BooksListItem/BooksListItem';
 import Loading from '../../components/Loading/Loading';
 
-const BooksList = ({ loading, books, showMyBooks, history}) => {
+const BooksList = ({ loading, authAdmin, authenticated, books, showMyBooks, history}) => {
   if (loading) {
     if ( books.length === 0 ) {
       return (
@@ -21,7 +21,13 @@ const BooksList = ({ loading, books, showMyBooks, history}) => {
       <div>
         BooksList
         { books.map((book) =>
-          <BooksListItem key={book._id} {...book} history={history} />
+          <BooksListItem
+            key={book._id}
+            authAdmin={authAdmin}
+            authenticated={authenticated}
+            {...book}
+            history={history}
+          />
         )}
       </div>
     );
@@ -31,6 +37,8 @@ const BooksList = ({ loading, books, showMyBooks, history}) => {
 }
 
 BooksList.propTypes = {
+  authAdmin: PropTypes.bool.isRequired,
+  authenticated: PropTypes.bool.isRequired,
   books: PropTypes.arrayOf(PropTypes.object),
 };
 

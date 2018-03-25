@@ -3,11 +3,6 @@ import moment from 'moment';
 import PropTypes from 'prop-types';
 
 const handleClick = (authAdmin, userId, editMode, editOnClickValue) => {
-  console.log(
-    'authAdmin: ', authAdmin,
-    '\nuserId: ', userId,
-    '\nmeterId: ', Meteor.userId(),
-    '\neditValue: ', editOnClickValue);
   if (editOnClickValue && (Meteor.userId() === userId || authAdmin)) {
     editMode.set(true);
   }

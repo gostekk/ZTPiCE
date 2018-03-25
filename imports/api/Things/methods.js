@@ -30,7 +30,7 @@ Meteor.methods({
   },
 
   'things.remove': function thingsRemove(_id) {
-    if (!this.userId) {
+    if (!Roles.userIsInRole(this.userId, 'admin')) {
       throw new Meteor.Error('not-authorized');
     }
 
@@ -43,7 +43,7 @@ Meteor.methods({
       _id
     });
 
-    return Things.remove(_id);
+    Things.remove(_id);
   },
 
   'things.changeOwner': function thingsChangeOwner(thingId, userId) {
